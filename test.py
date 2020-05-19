@@ -18,6 +18,33 @@ from tqdm import tqdm
 from utils import get_predictions
 #%%
 
+"""
+The new codes for profiling starts here
+
+@author: Ying
+"""
+
+"""
+#The following line of code is useful when we profile with PyProf
+import torch.cuda.profiler as profiler
+from apex import pyprof
+pyprof.nvtx.init()
+
+#torch.autograd.profiler.emit_nvtx()
+"""
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
+"""
+#The following line of code is useful when we profile with cProfile
+import cProfile
+"""
+
+"""
+The new codes for profiling ends here
+
+@author: Ying
+"""
+
 if __name__ == '__main__':
     
     args = parse_args()
@@ -35,10 +62,12 @@ if __name__ == '__main__':
     model = model_dict[args.model]
     model  = model.to(device)
     filename = args.load
+    
     if not os.path.exists(filename):
         print("model path not found !!!")
         exit(1)
-        
+    
+    
     model.load_state_dict(torch.load(filename))
     model = model.to(device)
     model.eval()
@@ -53,6 +82,8 @@ if __name__ == '__main__':
     os.makedirs('test/labels/',exist_ok=True)
     os.makedirs('test/output/',exist_ok=True)
     os.makedirs('test/mask/',exist_ok=True)
+
+    count = 0
     
     with torch.no_grad():
         for i, batchdata in tqdm(enumerate(testloader),total=len(testloader)):
@@ -73,5 +104,9 @@ if __name__ == '__main__':
                 img_orig = np.array(img_orig)
                 combine = np.hstack([img_orig,pred_img])
                 plt.imsave('test/mask/{}.jpg'.format(index[j]),combine)
+            
+            count = count + 1
+            if (count == 20):
+                break
 
     os.rename('test',args.save)
