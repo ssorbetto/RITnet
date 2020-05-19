@@ -1,3 +1,7 @@
+**This is part of [ILLIXR](https://github.com/ILLIXR/ILLIXR), the Illinios Extended Reality Benchmark Suite. The following explains how to use RITnet. The code is based on Python3.**
+
+# RITnet
+
 If you use this code, please cite:
 ```
 @misc{chaudhary2019ritnet,
@@ -22,8 +26,9 @@ To test the result:
  
 ```python test.py --model densenet --load best_model.pkl --bs 4 --dataset Semantic_Segmentation_Dataset/```
 
+If you type in ```python test.py```, the batch size will be 8.
 
-# Contents in the zip folder
+## Contents in the zip folder
 ```
 best_model.pkl     :: Our final model (potential winner model) which contains all the weights in Float32 format (Number of Parameters 248900).
 requirements.txt   :: Includes all the necessary packages for the source code to run 
