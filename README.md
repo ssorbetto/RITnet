@@ -1,4 +1,5 @@
-**This is part of [ILLIXR](https://github.com/ILLIXR/ILLIXR), the Illinios Extended Reality Benchmark Suite. The following explains how to use RITnet. The code is based on Python3, and the profiling results are based on ```test.py```.**
+**This is part of [ILLIXR](https://github.com/ILLIXR/ILLIXR), the Illinios Extended Reality Benchmark Suite. The following explains how to use RITnet. The code is based on Python3, and the profiling results are based on ```test.py```.
+For the testing images, the size per image should be 640 * 400 in gray scale. Please put them under ```Semantic_Segmentation_Dataset/test/images```.**
 
 # RITnet
 
