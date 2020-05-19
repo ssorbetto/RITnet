@@ -2,7 +2,7 @@
 
 # RITnet
 
-If you use this code, please cite:
+RITnet is the winnning model of the OpenEDS Semantic Segmentation Challenge. If you use this code, please cite:
 ```
 @misc{chaudhary2019ritnet,
     title={RITnet: Real-time Semantic Segmentation of the Eye for Gaze Tracking},
