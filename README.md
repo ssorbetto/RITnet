@@ -1,5 +1,4 @@
-**This is part of [ILLIXR](https://github.com/ILLIXR/ILLIXR), the Illinios Extended Reality Benchmark Suite. The following explains how to use RITnet. The code is based on Python3, and the profiling results are based on ```test.py```.
-For the testing images, the size per image should be 640 * 400 in gray scale. Please put them under ```Semantic_Segmentation_Dataset/test/images```.**
+**This is part of [ILLIXR](https://github.com/ILLIXR/ILLIXR), the Illinios Extended Reality Benchmark Suite. The following explains how to use RITnet. The code is based on Python3, and the profiling results are based on ```test.py```.**
 
 # RITnet
 
@@ -24,8 +23,14 @@ To train the model with densenet model:
 ```python train.py --model densenet --expname FINAL --bs 8 --useGPU True --dataset Semantic_Segmentation_Dataset/```
 
 To test the result:
- 
-```python test.py --model densenet --load best_model.pkl --bs 4 --dataset Semantic_Segmentation_Dataset/```
+
+**You first need an input dataset of 640 * 400 gray scale pngs** placed in ```Semantic_Segmentation_Dataset/test/images```. One way to quickly obtain a dataset for running RITnet out-of-the-box is from NVGaze. You can get the original OpenEDS dataset from Meta, but you have to email them for it. Go to the NVGaze website and fill out the Participant Agreement; you should almost immediately get access to the dataset. Their real world dataset should be 640 * 480 jpgs (640 * 400 pngs are needed), so we need to resize and change the image formats. This can be done using:
+```
+sudo apt-get install ffmpeg
+ffmpeg -i 000001.jpg -vf scale=640:400 000001.png
+```
+
+Then, test with ```python test.py --model densenet --load best_model.pkl --bs 4 --dataset Semantic_Segmentation_Dataset/```.
 
 If you type in ```python test.py```, the batch size will be 8.
 
@@ -196,3 +201,4 @@ Estimated Total Size (MB): 1922.34
 ----------------------------------------------------------------
 
 ```
+
