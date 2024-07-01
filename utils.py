@@ -185,8 +185,14 @@ def get_nparams(model):
 
 def get_predictions(output):
     bs,c,h,w = output.size()
+    # print("shape: ", output.shape) # [1, 4, 400, 640]
     values, indices = output.cpu().max(1)
+    # print("shape1: ", output.cpu().shape) # [1, 4, 400, 640]
+    # print("shape2: ", indices.shape) # 1, 400, 640
+    print("===================", indices.tolist()[:10])
+    print("indices ===================", values.tolist()[:10])
     indices = indices.view(bs,h,w) # bs x h x w
+    # print("shape3: ", indices.shape)
     return indices
 
 

@@ -77,6 +77,7 @@ if __name__ == '__main__':
     
     testloader = DataLoader(test_set, batch_size = args.bs,
                              shuffle=False, num_workers=2)
+    print("Length of testloader: ", len(testloader))
     counter=0
     
     os.makedirs('test/labels/',exist_ok=True)
@@ -84,7 +85,8 @@ if __name__ == '__main__':
     os.makedirs('test/mask/',exist_ok=True)
 
     count = 0
-    
+
+
     with torch.no_grad():
         for i, batchdata in tqdm(enumerate(testloader),total=len(testloader)):
             img,labels,index,x,y= batchdata
@@ -94,9 +96,12 @@ if __name__ == '__main__':
             for j in range (len(index)):       
                 np.save('test/labels/{}.npy'.format(index[j]),predict[j].cpu().numpy())
                 try:
+                    # print("Type of labels[j]: ", type(labels[j]))
+                    # print("Shape of labels[j]: ", labels[j].shape)
+                    # print("First few elements of labels[j]: ", labels[j][:5])
                     plt.imsave('test/output/{}.jpg'.format(index[j]),255*labels[j].cpu().numpy())
-                except:
-                    pass
+                except Exception as e: # comment this out
+                    print("Exception: ", e)
                 
                 pred_img = predict[j].cpu().numpy()/3.0
                 inp = img[j].squeeze() * 0.5 + 0.5

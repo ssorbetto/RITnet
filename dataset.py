@@ -123,6 +123,7 @@ class MaskToTensor(object):
   
 class IrisDataset(Dataset):
     def __init__(self, filepath, split='train',transform=None,**args):
+        print("woo ! !!!!!!")
         self.transform = transform
         self.filepath= osp.join(filepath,split)
         self.split = split
@@ -145,15 +146,17 @@ class IrisDataset(Dataset):
         return len(self.list_files)
 
     def __getitem__(self, idx):
+        # print("hello??")
         imagepath = osp.join(self.filepath,'images',self.list_files[idx]+'.png')
         pilimg = Image.open(imagepath).convert("L")
+        # print("here1", type(pilimg))
         H, W = pilimg.width , pilimg.height
        
         #PREPROCESSING STEP FOR ALL TRAIN, VALIDATION AND TEST INPUTS 
         #Fixed gamma value for      
         table = 255.0*(np.linspace(0, 1, 256)**0.8)
         pilimg = cv2.LUT(np.array(pilimg), table)
-        
+        # print("here2", type(pilimg))
 
         if self.split != 'test':
             labelpath = osp.join(self.filepath,'labels',self.list_files[idx]+'.npy')
@@ -197,6 +200,7 @@ class IrisDataset(Dataset):
             
         if self.split == 'test':
             ##since label, spatialWeights and distMap is not needed for test images
+            print("here3", type(img))
             return img,0,self.list_files[idx],0,0
             
         label = MaskToTensor()(label)
